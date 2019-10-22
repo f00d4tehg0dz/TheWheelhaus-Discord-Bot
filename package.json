@@ -1,0 +1,18 @@
+{
+  "name": "The Wheelhaus",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord-logger": "^1.0.1",
+    "discord.js": "^11.4.2",
+    "winston": "^3.2.1",
+    "winston-discord": "^0.2.0"
+  }
+}
