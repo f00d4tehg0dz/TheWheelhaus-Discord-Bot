@@ -44,11 +44,6 @@ client.once('ready', () => {
 // 	});
 // }
 
-// UpperCase
-const capitalize = (s) => {
-	if (typeof s !== 'string') return '';
-	return s.charAt(0).toUpperCase() + s.slice(1);
-};
 // Listening for messages
 client.on('message', message => {
 	// If the message either doesn't start with the prefix or was sent by a bot, exit early.
@@ -62,7 +57,6 @@ client.on('message', message => {
 
 		if (message.content.endsWith(userInput)) {
 			// const tagIDs = parseTags(userInput);
-
 			const wheelhausTags = 'https://steam.cma.dk/tags';
 			request(wheelhausTags, function(err, response, body) {
 				if (err) {
@@ -73,11 +67,12 @@ client.on('message', message => {
 				const _data = JSON.parse(body);
 				// Empty Array
 				const result = [];
-				const nameToSearchFor = capitalize(userInput);
+				const nameToSearchFor = userInput;
 				const searchJSON = _data.find((b) => {
 					if(b.name === nameToSearchFor) {
 						return result.push(b.id);
 					}
+
 				});
 				const wheelhausRandom = `https://steam.cma.dk/apps?limit=8&random=1&category=0&genre=0&free=0&tag=${searchJSON.id}`;
 
