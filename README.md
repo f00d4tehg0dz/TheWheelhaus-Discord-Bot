@@ -4,4 +4,4 @@
 !shuffle
 
 #Future Commands
-!s <tag>
+!tags <tagname>
