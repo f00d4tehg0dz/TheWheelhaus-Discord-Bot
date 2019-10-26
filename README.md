@@ -4,6 +4,8 @@ The Wheelhaus Discord Bot is a prototype discord bot for thewheelhaus.com
 
 [Invite the bot to your server!](https://discordapp.com/oauth2/authorize?client_id=636141023789056002&scope=bot&permissions=0) 
 
+![screenshot.JPG](doc/screenshot.JPG)
+
 ## Installation
 
 Download [nodejs](https://nodejs.org/en/download/)
