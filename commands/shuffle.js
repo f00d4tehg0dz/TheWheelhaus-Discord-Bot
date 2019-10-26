@@ -16,18 +16,14 @@ module.exports = {
 			else {
 				const wheelhausJSON = JSON.parse(body);
 				for (let i = 0; i < wheelhausJSON.length; i++) {
-					console.log(wheelhausJSON[i].name);
-					console.log(wheelhausJSON[i].description.slice(0, 300));
-					console.log(`https://store.steampowered.com/app/${wheelhausJSON[i].id}`);
-					console.log(wheelhausJSON[i].image);
-					const wheelHausMessage = `Randomizing ${wheelhausJSON[i].name}: ` + '\n';
+					const wheelHausMessage = `${wheelhausJSON[i].name}` + '\n';
 					const wheelHausMessageDesc = `${wheelhausJSON[i].description.replace(/<[^>]*>?/gm, '').slice(0, 300)}` + '\n' + 'Follow this link above to read more';
 					const wheelHausURL = `https://store.steampowered.com/app/${wheelhausJSON[i].id}`;
 					const wheelhausImage = `${wheelhausJSON[i].image}`;
 					const wheelhausPrice = `${wheelhausJSON[i].price}`;
 					const embed = {
 						'title': `${wheelHausMessage}`,
-						'color': 14274056,
+						'color': 16679428,
 						'description': `${wheelHausMessageDesc}`,
 						'url': `${wheelHausURL}`,
 						'image': {
