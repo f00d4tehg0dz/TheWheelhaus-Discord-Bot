@@ -13,6 +13,8 @@ module.exports = {
 		if (!args.length) {
 			data.push('Here\'s a list of all my commands:');
 			data.push(`\nTo Get a Random Steam Game, Simply Type  \`${prefix}shuffle \``);
+			data.push(`\nTo Get a Random Steam Game From your Username, Simply Type  \`${prefix}user <usernamehere> \``);
+			data.push(`\nTo Get a Random Steam Game From Tags, Simply Type  \`${prefix}tags <taghere> \``);
 			data.push('\nIf you found this DiscordBot useful. Why not show your support! http://ko-fi.com/I2I1QX9K');
 
 			return message.author.send(data, { split: true })
