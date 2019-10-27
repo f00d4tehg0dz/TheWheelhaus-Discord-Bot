@@ -31,7 +31,7 @@ const cooldowns = new Discord.Collection();
 // this event will only trigger one time after logging in
 client.once('ready', () => {
 	// client.user.setActivity('Randomizing');
-	client.user.setActivity(`Randomizing Steam on ${client.guilds.size} servers`);
+	client.user.setActivity(`Spinning the wheel on ${client.guilds.size} servers`);
 	console.log(`Ready to serve on ${client.guilds.size} servers, for ${client.users.size} users.`);
 	// console.log('Ready!');
 });
