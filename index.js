@@ -64,7 +64,7 @@ client.on('message', message => {
 
 		if (message.content.endsWith(userInput)) {
 			// const tagIDs = parseTags(userInput);
-			const wheelhausRandom = `https://steam.cma.dk/apps?category=&genre=&tag=&free=0&non_vr=0&username=${userInput}`;
+			const wheelhausRandom = `https://steam.cma.dk/apps?limit=8&random=1&category=&genre=&tag=&free=0&non_vr=0&username=${userInput}`;
 			request(wheelhausRandom, function(err, response, body) {
 				if (err) {
 					const error = 'cannot connect to the server';
@@ -75,7 +75,68 @@ client.on('message', message => {
 					const wheelhausJSON = JSON.parse(body);
 					for (let i = 0; i < wheelhausJSON.length; i++) {
 						const wheelHausMessage = `${wheelhausJSON[i].name} ` + '\n';
-						const wheelHausMessageDesc = `${wheelhausJSON[i].description.replace(/<[^>]*>?/gm, '').slice(0, 300)}` + '\n' + 'Follow this link above to read more';
+						const wheelHausMessageDesc = `${wheelhausJSON[i].description.replace(/<[^>]*>?/gm, '').slice(0, 500)}` + '\n' + 'Follow this link above to read more';
+						const wheelHausURL = `https://store.steampowered.com/app/${wheelhausJSON[i].id}`;
+						const wheelhausImage = `${wheelhausJSON[i].image}`;
+						const wheelhausPrice = `${wheelhausJSON[i].price}`;
+						const embed = {
+							'title': `${wheelHausMessage}`,
+							'color': 16679428,
+							'description': `${wheelHausMessageDesc}`,
+							'url': `${wheelHausURL}`,
+							'image': {
+								'url': `${wheelhausImage}`,
+							},
+							'thumbnail': {
+								'url': `${wheelhausImage}`,
+							},
+							'fields': [{
+								'name': 'Price',
+								'value': `${wheelhausPrice}`,
+							}, {
+								'name': `${testClass.baseEmbedTemplate()[3]}`,
+								'value': `${testClass.baseEmbedTemplate()[2]}`,
+							} ],
+							'footer': {
+								'text': `${testClass.baseEmbedTemplate()[0]}`,
+							},
+							'author': {
+								'name': 'f00d',
+							},
+						};
+						message.channel.send({
+							embed,
+						});
+						// stop it from firing more than once
+						break;
+					}
+				}
+			});
+		}
+		else {
+			message.channel.send('No results, check your spelling first');
+		}
+	}
+
+	// Genre
+	if (message.content.startsWith(prefix + 'genre')) {
+
+		const userInput = input.substr('7');
+
+		if (message.content.endsWith(userInput)) {
+			// const tagIDs = parseTags(userInput);
+			const wheelhausRandom = `https://steam.cma.dk/apps?limit=8&random=1&category=&genre==${userInput}&tag=&free=0&non_vr=0`;
+			request(wheelhausRandom, function(err, response, body) {
+				if (err) {
+					const error = 'cannot connect to the server';
+					message.channel.send(error);
+					message.channel.send('No results, check your spelling first');
+				}
+				else {
+					const wheelhausJSON = JSON.parse(body);
+					for (let i = 0; i < wheelhausJSON.length; i++) {
+						const wheelHausMessage = `${wheelhausJSON[i].name} ` + '\n';
+						const wheelHausMessageDesc = `${wheelhausJSON[i].description.replace(/<[^>]*>?/gm, '').slice(0, 500)}` + '\n' + 'Follow this link above to read more';
 						const wheelHausURL = `https://store.steampowered.com/app/${wheelhausJSON[i].id}`;
 						const wheelhausImage = `${wheelhausJSON[i].image}`;
 						const wheelhausPrice = `${wheelhausJSON[i].price}`;
@@ -119,9 +180,9 @@ client.on('message', message => {
 	}
 
 	// Tags
-	if (message.content.startsWith(prefix + 'tags')) {
+	if (message.content.startsWith(prefix + 'tag')) {
 
-		const userInput = input.substr('6');
+		const userInput = input.substr('5');
 
 		if (message.content.endsWith(userInput)) {
 			// const tagIDs = parseTags(userInput);
@@ -154,7 +215,7 @@ client.on('message', message => {
 						const wheelhausJSON = JSON.parse(bodys);
 						for (let i = 0; i < wheelhausJSON.length; i++) {
 							const wheelHausMessage = `${wheelhausJSON[i].name} ` + '\n';
-							const wheelHausMessageDesc = `${wheelhausJSON[i].description.replace(/<[^>]*>?/gm, '').slice(0, 300)}` + '\n' + 'Follow this link above to read more';
+							const wheelHausMessageDesc = `${wheelhausJSON[i].description.replace(/<[^>]*>?/gm, '').slice(0, 500)}` + '\n' + 'Follow this link above to read more';
 							const wheelHausURL = `https://store.steampowered.com/app/${wheelhausJSON[i].id}`;
 							const wheelhausImage = `${wheelhausJSON[i].image}`;
 							const wheelhausPrice = `${wheelhausJSON[i].price}`;

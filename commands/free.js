@@ -1,7 +1,7 @@
 const request = require('request');
 const testClass = require('../commands/helper.js');
 module.exports = {
-	name: 'shuffle',
+	name: 'free',
 	description: 'Randomized WheelHaus',
 	usage: 'Display Randomized Game from Wheelhaus',
 	cooldown: 5,
