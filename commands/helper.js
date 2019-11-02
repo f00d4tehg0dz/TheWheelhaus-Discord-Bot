@@ -21,7 +21,7 @@ module.exports.get_url_extension = function(url) {
 module.exports.baseEmbedTemplate = function() {
 	const ftitle = 'The Wheelhaus';
 	const furl = 'thewheelhaus.com';
-	const inlineurl = 'https://ko-fi.com/f00dplays';
-	const inlineText = 'If you found this info useful, consider buying the developer a coffee? ';
+	const inlineurl = 'https://www.patreon.com/f00ddevelops';
+	const inlineText = 'Support this Bot and other works over at Patreon';
 	return [ftitle, furl, inlineurl, inlineText];
 };
