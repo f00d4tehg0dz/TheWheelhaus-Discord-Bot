@@ -63,9 +63,17 @@ client.on('message', message => {
 		const userInput = input.substr('6');
 
 		if (message.content.endsWith(userInput)) {
+			const options = {
+				url: `https://steam.cma.dk/apps?limit=8&random=1&category=&genre=&tag=&free=0&non_vr=0&username=${userInput}`,
+				method: 'GET',
+				headers: {
+					'Accept': 'application/json',
+					'Accept-Charset': 'utf-8',
+					'User-Agent': 'wheelhausDiscordBot',
+				},
+			};
 			// const tagIDs = parseTags(userInput);
-			const wheelhausRandom = `https://steam.cma.dk/apps?limit=8&random=1&category=&genre=&tag=&free=0&non_vr=0&username=${userInput}`;
-			request(wheelhausRandom, function(err, response, body) {
+			request(options, function(err, response, body) {
 				if (err) {
 					const error = 'cannot connect to the server';
 					message.channel.send(error);
@@ -122,11 +130,18 @@ client.on('message', message => {
 	if (message.content.startsWith(prefix + 'genre')) {
 
 		const userInput = input.substr('7');
-
+		const options = {
+			url: `https://steam.cma.dk/apps?limit=8&random=1&category=&genre==${userInput}&tag=&free=0&non_vr=0`,
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json',
+				'Accept-Charset': 'utf-8',
+				'User-Agent': 'wheelhausDiscordBot',
+			},
+		};
 		if (message.content.endsWith(userInput)) {
 			// const tagIDs = parseTags(userInput);
-			const wheelhausRandom = `https://steam.cma.dk/apps?limit=8&random=1&category=&genre==${userInput}&tag=&free=0&non_vr=0`;
-			request(wheelhausRandom, function(err, response, body) {
+			request(options, function(err, response, body) {
 				if (err) {
 					const error = 'cannot connect to the server';
 					message.channel.send(error);
@@ -186,9 +201,16 @@ client.on('message', message => {
 
 		if (message.content.endsWith(userInput)) {
 			// const tagIDs = parseTags(userInput);
-
-			const wheelhausTags = 'https://steam.cma.dk/tags';
-			request(wheelhausTags, function(err, response, body) {
+			const options = {
+				url: 'https://steam.cma.dk/tags',
+				method: 'GET',
+				headers: {
+					'Accept': 'application/json',
+					'Accept-Charset': 'utf-8',
+					'User-Agent': 'wheelhausDiscordBot',
+				},
+			};
+			request(options, function(err, response, body) {
 				if (err) {
 					const error = 'cannot connect to the server';
 					console.log(error);
@@ -203,55 +225,69 @@ client.on('message', message => {
 						return result.push(b.id);
 					}
 				});
-				const wheelhausRandom = `https://steam.cma.dk/apps?limit=8&random=1&category=0&genre=0&free=0&tag=${searchJSON.id}`;
-
-				request(wheelhausRandom, function(err, responses, bodys) {
-					if (err) {
-						const error = 'cannot connect to the server';
-						message.channel.send(error);
-						message.channel.send('No results, check your spelling first');
-					}
-					else {
-						const wheelhausJSON = JSON.parse(bodys);
-						for (let i = 0; i < wheelhausJSON.length; i++) {
-							const wheelHausMessage = `${wheelhausJSON[i].name} ` + '\n';
-							const wheelHausMessageDesc = `${wheelhausJSON[i].description.replace(/<[^>]*>?/gm, '').slice(0, 500)}` + '\n' + 'Follow this link above to read more';
-							const wheelHausURL = `https://store.steampowered.com/app/${wheelhausJSON[i].id}`;
-							const wheelhausImage = `${wheelhausJSON[i].image}`;
-							const wheelhausPrice = `${wheelhausJSON[i].price}`;
-							const embed = {
-								'title': `${wheelHausMessage}`,
-								'color': 16679428,
-								'description': `${wheelHausMessageDesc}`,
-								'url': `${wheelHausURL}`,
-								'image': {
-									'url': `${wheelhausImage}`,
-								},
-								'thumbnail': {
-									'url': `${wheelhausImage}`,
-								},
-								'fields': [{
-									'name': 'Price',
-									'value': `${wheelhausPrice}`,
-								}, {
-									'name': `${testClass.baseEmbedTemplate()[3]}`,
-									'value': `${testClass.baseEmbedTemplate()[2]}`,
-								} ],
-								'footer': {
-									'text': `${testClass.baseEmbedTemplate()[0]}`,
-								},
-								'author': {
-									'name': 'f00d',
-								},
-							};
-							message.channel.send({
-								embed,
-							});
-							// stop it from firing more than once
-							break;
+				try {
+					const options2 = {
+						url: `https://steam.cma.dk/apps?limit=8&random=1&category=0&genre=0&free=0&tag=${searchJSON.id}`,
+						method: 'GET',
+						headers: {
+							'Accept': 'application/json',
+							'Accept-Charset': 'utf-8',
+							'User-Agent': 'wheelhausDiscordBot',
+						},
+					};
+					request(options2, function(err, responses, bodys) {
+						if (err) {
+							const error = 'cannot connect to the server';
+							message.channel.send(error);
+							message.channel.send('No results, check your spelling first');
+						}
+						else {
+							const wheelhausJSON = JSON.parse(bodys);
+							for (let i = 0; i < wheelhausJSON.length; i++) {
+								const wheelHausMessage = `${wheelhausJSON[i].name} ` + '\n';
+								const wheelHausMessageDesc = `${wheelhausJSON[i].description.replace(/<[^>]*>?/gm, '').slice(0, 500)}` + '\n' + 'Follow this link above to read more';
+								const wheelHausURL = `https://store.steampowered.com/app/${wheelhausJSON[i].id}`;
+								const wheelhausImage = `${wheelhausJSON[i].image}`;
+								const wheelhausPrice = `${wheelhausJSON[i].price}`;
+								const embed = {
+									'title': `${wheelHausMessage}`,
+									'color': 16679428,
+									'description': `${wheelHausMessageDesc}`,
+									'url': `${wheelHausURL}`,
+									'image': {
+										'url': `${wheelhausImage}`,
+									},
+									'thumbnail': {
+										'url': `${wheelhausImage}`,
+									},
+									'fields': [{
+										'name': 'Price',
+										'value': `${wheelhausPrice}`,
+									}, {
+										'name': `${testClass.baseEmbedTemplate()[3]}`,
+										'value': `${testClass.baseEmbedTemplate()[2]}`,
+									} ],
+									'footer': {
+										'text': `${testClass.baseEmbedTemplate()[0]}`,
+									},
+									'author': {
+										'name': 'f00d',
+									},
+								};
+								message.channel.send({
+									embed,
+								});
+								// stop it from firing more than once
+								break;
+							}
 						}
 					}
-				});
+					);
+				}
+				catch (error) {
+					console.error(error);
+					message.reply('there was an error trying to execute that command! Please include a tag name');
+				}
 			});
 		}
 		else {

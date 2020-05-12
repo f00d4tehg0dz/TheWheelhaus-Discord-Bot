@@ -1,4 +1,13 @@
 const request = require('request');
+const options = {
+	url: 'https://steam.cma.dk/tags',
+	method: 'GET',
+	headers: {
+		'Accept': 'application/json',
+		'Accept-Charset': 'utf-8',
+		'User-Agent': 'wheelhausDiscordBot',
+	},
+};
 const testClass = require('../commands/helper.js');
 module.exports = {
 	name: 'listtags',
@@ -12,8 +21,7 @@ module.exports = {
 				return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 			});
 		}
-		const wheelhausRandom = 'https://steam.cma.dk/tags';
-		request(wheelhausRandom, function(err, response, body) {
+		request(options, function(err, response, body) {
 			if (err) {
 				const error = 'cannot connect to the server';
 				message.channel.send(error);
