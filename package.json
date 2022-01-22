@@ -12,7 +12,7 @@
   "dependencies": {
     "discord-logger": "^1.0.1",
     "discord.js": "^11.4.2",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "winston": "^3.2.1",
     "winston-discord": "^0.2.0"
   }
