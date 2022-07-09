@@ -2,7 +2,7 @@
 
 The Wheelhaus Discord Bot is a prototype discord bot for thewheelhaus.com
 
-[Invite the bot to your server!](https://discordapp.com/oauth2/authorize?client_id=636141023789056002&scope=bot&permissions=0) 
+[Invite the bot to your server!](https://discord.com/api/oauth2/authorize?client_id=636141023789056002&permissions=534723947584&scope=bot%20applications.commands) 
 
 ![screenshot.JPG](doc/screenshot.JPG)
 
@@ -30,9 +30,9 @@ node index.js
 ## Usage
 
 ```bash
-!shuffle  
-!user <insertusername>
-!tags <inserttags>
+/free Randomized Free Game
+/shuffle Randomized Game
+/list_of_tags List of Tags
 ```
 
 ## Contributing
