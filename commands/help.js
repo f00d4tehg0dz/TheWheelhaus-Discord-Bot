@@ -17,8 +17,8 @@ module.exports = {
 			data.push('\nTo Get a Free Random Steam Game, Simply Type / `free `');
 			data.push('\nTo Get a Shuffle Random Steam Game, Simply Type / `shuffle `');
 			data.push('\nTo Get a List of Tags used, Simply Type / `list of tags`');
-			data.push('\nTo Get a Genre and Shuffle, Simply Type / `genre` and then enter a genre and press enter ');
-			data.push('\nTo Get a Category and Shuffle, Simply Type / `category` and then enter a category and press enter ');
+			// data.push('\nTo Get a Genre and Shuffle, Simply Type / `genre` and then enter a genre and press enter ');
+			// data.push('\nTo Get a Category and Shuffle, Simply Type / `category` and then enter a category and press enter ');
 			data.push('\nIf you found this Discord Bot useful. Why not show your support! https://top.gg/bot/539897313691172874');
 
 			return message.author.send(data, { split: true })
