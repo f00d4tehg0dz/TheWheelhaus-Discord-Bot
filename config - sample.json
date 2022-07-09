@@ -1,10 +1,4 @@
 {
 	"prefix": "!",
-	"token": "xxx",
-	"meaning_of_life": 42,
-	"passwords_array": ["xxx"],
-	"secret_passcodes": {
-		"bank": 1234,
-		"home": 4321
-	}
+	"token": "xxx"
 }

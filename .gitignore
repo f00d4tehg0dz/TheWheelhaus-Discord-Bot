@@ -77,3 +77,9 @@ typings/
 
 # Config
 config.json
+
+# Packge-lock
+package-lock.json
+
+#history
+.history
