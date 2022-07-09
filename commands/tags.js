@@ -17,7 +17,7 @@ const options = {
 };
 
 module.exports = new Command({
-	name: 'List of Tags',
+	name: 'list_of_tags',
 	description: 'List of all Tags',
 	usage: 'List of all Available TagS',
 	type: 'BOTH',
