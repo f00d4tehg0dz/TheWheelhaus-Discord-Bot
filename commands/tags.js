@@ -1,4 +1,11 @@
+/** @format */
+
+const Command = require('../Structures/Command.js');
+
+const Discord = require('discord.js');
+
 const request = require('request');
+
 const options = {
 	url: 'https://steam.cma.dk/tags',
 	method: 'GET',
@@ -8,13 +15,16 @@ const options = {
 		'User-Agent': 'wheelhausDiscordBot',
 	},
 };
-const testClass = require('../commands/helper.js');
-module.exports = {
-	name: 'listtags',
+
+module.exports = new Command({
+	name: 'List of Tags',
 	description: 'List of all Tags',
-	usage: 'List of all Available Tags',
-	cooldown: 5,
-	execute(message) {
+	usage: 'List of all Available TagS',
+	type: 'BOTH',
+	slashCommandOptions: [],
+	permission: 'SEND_MESSAGES',
+	async run(message) {
+		const embed = new Discord.MessageEmbed();
 		function sortByName(array) {
 			return array.sort(function(a, b) {
 				const x = a['name']; const y = b['name'];
@@ -33,36 +43,24 @@ module.exports = {
 				const sortedJson = sortByName(wheelhausJSON);
 				// Grab just name
 				const tagsName = sortedJson.map(a => a.name);
-				const listtags = JSON.stringify(tagsName);
-				const regexTags = listtags.replace(/^\[|\]$/, '').split(',').join(', ');
+				const listTags = JSON.stringify(tagsName);
+				const regexTags = listTags.replace(/^\[|\]$/, '').split(',').join(', ');
 				const regexTagsStripQuotations = regexTags.replace(/"([^"]+(?="))"/g, '$1');
 				const regexString = JSON.stringify(regexTagsStripQuotations);
-				console.log(regexString);
 				const wheelHausMessage = 'List of all Tags';
 				const wheelHausMessageDesc = `${regexString.slice(0, 2010)}` + '\n' + 'Follow the link above to see more!';
 				const wheelHausURL = 'https://steamdb.info/tags/';
-				const embed = {
-					'title': `${wheelHausMessage}`,
-					'color': 16679428,
-					'description': `${wheelHausMessageDesc}`,
-					'url': `${wheelHausURL}`,
-					'fields': [
-						{
-							'name': `${testClass.baseEmbedTemplate()[3]}`,
-							'value': `${testClass.baseEmbedTemplate()[2]}`,
-						},
-					],
-					'footer': {
-						'text': `${testClass.baseEmbedTemplate()[0]}`,
-					},
-					'author': {
-						'name': 'f00d',
-					},
-				};
-				message.channel.send({
-					embed,
-				});
+				embed
+					.setTitle(`${wheelHausMessage}`)
+					.setURL(`${wheelHausURL}`)
+					.setDescription(
+						`${wheelHausMessageDesc}`,
+					)
+					.setColor(16679428)
+					.setTimestamp()
+					.setFooter({ text: 'Have questions? Twitter @_ok_adrian' }),
+				message.reply({ embeds: [embed] });
 			}
 		});
 	},
-};
+});

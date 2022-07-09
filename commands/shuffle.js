@@ -1,4 +1,11 @@
+/** @format */
+
+const Command = require('../Structures/Command.js');
+
+const Discord = require('discord.js');
+
 const request = require('request');
+
 const options = {
 	url: 'https://steam.cma.dk/apps?limit=8&random=1&category=0&genre=0&free=0&format=json',
 	method: 'GET',
@@ -8,13 +15,17 @@ const options = {
 		'User-Agent': 'wheelhausDiscordBot',
 	},
 };
-const testClass = require('../commands/helper.js');
-module.exports = {
+
+module.exports = new Command({
 	name: 'shuffle',
 	description: 'Randomized WheelHaus',
 	usage: 'Display Randomized Game from Wheelhaus',
-	cooldown: 5,
-	execute(message) {
+	type: 'BOTH',
+	slashCommandOptions: [],
+	permission: 'SEND_MESSAGES',
+	async run(message) {
+		const embed = new Discord.MessageEmbed();
+
 		request(options, function(err, response, body) {
 			if (err) {
 				const error = 'cannot connect to the server';
@@ -29,40 +40,29 @@ module.exports = {
 					const wheelHausURL = `https://store.steampowered.com/app/${wheelhausJSON[i].id}`;
 					const wheelhausImage = `${wheelhausJSON[i].image}`;
 					const wheelhausPrice = `${wheelhausJSON[i].price}`;
-					const embed = {
-						'title': `${wheelHausMessage}`,
-						'color': 16679428,
-						'description': `${wheelHausMessageDesc}`,
-						'url': `${wheelHausURL}`,
-						'image': {
-							'url': `${wheelhausImage}`,
-						},
-						'thumbnail': {
-							'url': `${wheelhausImage}`,
-						},
-						'fields': [
+					embed
+						.setTitle(`${wheelHausMessage}`)
+						.setURL(`${wheelHausURL}`)
+						.setDescription(
+							`${wheelHausMessageDesc}`,
+						)
+						.setColor(16679428)
+						.setThumbnail(`${wheelhausImage}`)
+						.setTimestamp()
+						.setImage(
+							`${wheelhausImage}`,
+						)
+						.setFooter({ text: 'Have questions? Twitter @_ok_adrian' })
+						.addFields (
 							{
-								'name': 'Price',
-								'value': `${wheelhausPrice}`,
+								name: 'Price: ',
+								value: `${wheelhausPrice}`,
 							},
-							{
-								'name': `${testClass.baseEmbedTemplate()[3]}`,
-								'value': `${testClass.baseEmbedTemplate()[2]}`,
-							},
-						],
-						'footer': {
-							'text': `${testClass.baseEmbedTemplate()[0]}`,
-						},
-						'author': {
-							'name': 'f00d',
-						},
-					};
-					message.channel.send({
-						embed,
-					});
+						),
+					message.reply({ embeds: [embed] });
 					break;
 				}
 			}
 		});
 	},
-};
+});

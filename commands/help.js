@@ -1,24 +1,25 @@
-const { prefix } = require('../config.json');
+/** @format */
 
 module.exports = {
 	name: 'help',
-	description: 'List all of my commands or info about a specific command.',
+	description: 'List all of all commands for TheWheelhaus Discord Bot',
 	aliases: ['commands'],
-	usage: '[command name]',
-	cooldown: 5,
-	execute(message, args) {
+	usage: 'All commands for TheWheelhaus Discord Bot',
+	type: 'BOTH',
+	slashCommandOptions: [],
+	permission: 'SEND_MESSAGES',
+	async run(message, args) {
 		const data = [];
 		const { commands } = message.client;
 
 		if (!args.length) {
 			data.push('Here\'s a list of all my commands:');
-			data.push(`\nTo Get a Free Random Steam Game, Simply Type  \`${prefix}free \``);
-			data.push(`\nTo Get a Random Steam Game, Simply Type  \`${prefix}shuffle \``);
-			data.push(`\nTo Get a Random Steam Game From your Username, Simply Type  \`${prefix}user <usernamehere> \``);
-			data.push(`\nTo Get a Random Steam Game From Tags, Simply Type  \`${prefix}tag <taghere> \``);
-			data.push(`\nTo Get a Random Steam Game From Genre, Simply Type  \`${prefix}genre <genrehere> \``);
-			data.push(`\nTo List all available Tags, Simply Type  \`${prefix}listtags\``);
-			data.push('\nIf you found this DiscordBot useful. Why not show your support! https://www.patreon.com/f00ddevelops');
+			data.push('\nTo Get a Free Random Steam Game, Simply Type / `free `');
+			data.push('\nTo Get a Shuffle Random Steam Game, Simply Type / `shuffle `');
+			data.push('\nTo Get a List of Tags used, Simply Type / `list of tags`');
+			data.push('\nTo Get a Genre and Shuffle, Simply Type / `genre` and then enter a genre and press enter ');
+			data.push('\nTo Get a Category and Shuffle, Simply Type / `category` and then enter a category and press enter ');
+			data.push('\nIf you found this Discord Bot useful. Why not show your support! https://top.gg/bot/539897313691172874');
 
 			return message.author.send(data, { split: true })
 				.then(() => {
@@ -37,15 +38,5 @@ module.exports = {
 		if (!command) {
 			return message.reply('that\'s not a valid command!');
 		}
-
-		data.push(`**Name:** ${command.name}`);
-
-		if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
-		if (command.description) data.push(`**Description:** ${command.description}`);
-		if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
-
-		data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
-
-		message.channel.send(data, { split: true });
 	},
 };

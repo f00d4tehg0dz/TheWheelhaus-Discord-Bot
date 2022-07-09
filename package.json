@@ -1,19 +1,22 @@
 {
-  "name": "The-Wheelhaus",
-  "version": "1.0.1",
+  "name": "BR-Drop",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord-logger": "^1.0.1",
-    "discord.js": "^11.4.2",
-    "node-fetch": "^2.6.0",
-    "winston": "^3.2.1",
-    "winston-discord": "^0.2.0"
+    "@discordjs/builders": "^0.11.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "discord-api-types": "^0.26.1",
+    "discord.js": "^13.8.1",
+    "dotenv": "^10.0.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0"
   }
 }
