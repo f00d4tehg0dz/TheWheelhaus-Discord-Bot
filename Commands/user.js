@@ -36,7 +36,7 @@ module.exports = new Command({
 			const trimmedQuery = query.split(' ').slice(1).join(' ');
 
 			const options = {
-				url: `https://steam.cma.dk/apps?limit=8&random=1&category=&genre=&free=0&&non_vr=0&username=${trimmedQuery}&format=json`,
+				url: `https://steam.cma.dk/apps?limit=8&random=&category=&genre=&free=0&&non_vr=0&username=${trimmedQuery}&format=json`,
 				method: 'GET',
 				headers: {
 					'Accept': 'application/json',
