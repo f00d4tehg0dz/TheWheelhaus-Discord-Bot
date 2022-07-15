@@ -14,7 +14,7 @@ module.exports = new Command({
 	slashCommandOptions: [{
 		type: 'STRING',
 		name: 'user',
-		description: 'Tell me the steam user <STEAM NAME>',
+		description: 'Tell me the steam username <STEAM NAME>',
 		required: true,
 	}],
 	permission: ' ',
