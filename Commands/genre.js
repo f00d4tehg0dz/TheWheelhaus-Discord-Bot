@@ -7,14 +7,14 @@ const Discord = require('discord.js');
 const request = require('request');
 
 module.exports = new Command({
-	name: 'user',
-	description: 'Search by User, and Shuffle for Randomized Game',
-	usage: 'Display Randomized Game from Wheelhaus User',
+	name: 'genre',
+	description: 'Search by Genre, and Shuffle for Randomized Game',
+	usage: 'Display Randomized Game from Wheelhaus Genre',
 	type: 'BOTH',
 	slashCommandOptions: [{
 		type: 'STRING',
-		name: 'user',
-		description: 'Tell me the steam username <STEAM NAME>',
+		name: 'genre',
+		description: 'Tell me the steam genre <STEAM GENRE>',
 		required: true,
 	}],
 	permission: ' ',
@@ -36,7 +36,7 @@ module.exports = new Command({
 			const trimmedQuery = query.split(' ').slice(1).join(' ');
 
 			const options = {
-				url: `https://steam.cma.dk/apps?limit=8&random=1&category=&genre=&free=0&&non_vr=0&username=${trimmedQuery}&format=json`,
+				url: `https://steam.cma.dk/apps?limit=8&random=1&category=&genre=${trimmedQuery}&free=0&&non_vr=0&tags=&username=&format=json`,
 				method: 'GET',
 				headers: {
 					'Accept': 'application/json',
@@ -46,7 +46,7 @@ module.exports = new Command({
 			};
 
 			const reason = query.split(' ').slice(1).join(' ');
-			if (!reason) return message.reply(':x: You forgot to enter your steam username!');
+			if (!reason) return message.reply(':x: You forgot to enter a tag!');
 
 			request(options, function(err, response, body) {
 				if (err) {
