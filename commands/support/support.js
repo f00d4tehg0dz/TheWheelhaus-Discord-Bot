@@ -8,7 +8,7 @@ module.exports = {
     .setDescription(`Ask us a question, I promise we won't mind `),
   async execute(interaction) {
     const embed = new EmbedBuilder()
-      .setColor(process.env.embedColor)
+      .setColor(0xFF4500)
       .setTitle(`TheWheelhaus Bot Support Invite`)
       .setDescription(`[Ask a question here](https://discord.gg/93G9EWU45F)`)
     interaction.reply({embeds: [embed]});
