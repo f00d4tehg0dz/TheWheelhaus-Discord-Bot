@@ -1,13 +1,9 @@
-/** @format */
+const { Events } = require('discord.js');
 
-const Event = require('../Structures/Event.js');
-
-const deploy = require('../clientID.js');
-
-module.exports = new Event('ready', client => {
-	client.user.setActivity(`with ${client.guilds.cache.size} servers`, {
-		type: 'PLAYING',
-	});
-	deploy.clientID = client.user.id;
-	console.log(`Ready! Logged in as ${client.user.tag} ${client.guilds.cache.size}`);
-});
+module.exports = {
+	name: Events.ClientReady,
+	once: true,
+	execute(client) {
+		console.log(`Ready! Logged in as ${client.user.tag}`);
+	},
+};

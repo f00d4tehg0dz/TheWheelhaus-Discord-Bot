@@ -1,26 +1,23 @@
-const Event = require('../Structures/Event.js');
+const { Events } = require('discord.js');
 
-module.exports = new Event('interactionCreate', (client, interaction) => {
-	if (interaction.user.bot || !interaction.isCommand() || !interaction.guild)
-		return;
+module.exports = {
+	name: Events.InteractionCreate,
+	async execute(interaction) {
+		if (!interaction.isChatInputCommand()) return;
 
-	const args = [
-		interaction.commandName,
-		...client.commands
-			.find(cmd => cmd.name.toLowerCase() == interaction.commandName)
-			.slashCommandOptions.map(v => `${interaction.options.get(v.name).value}`)
-	];
+		const command = interaction.client.commands.get(interaction.commandName);
 
-	const command = client.commands.find(cmd => cmd.name.toLowerCase() == interaction.commandName);
+		if (!command) {
+			console.error(`No command matching ${interaction.commandName} was found.`);
+			return;
+		}
 
-	if (!command) return interaction.reply('That is not a valid command!');
+		try {
+			await command.execute(interaction);
 
-	const permission = interaction.member.permissions.has(command.permission);
-
-	if (!permission)
-		return interaction.reply (
-			'You do not have the correct permissions to run this command!'
-        );
-
-	command.run(interaction, args, client);
-});
+		} catch (error) {
+			console.error(`Error executing ${interaction.commandName}`);
+			console.error(error);
+		}
+	},
+};
